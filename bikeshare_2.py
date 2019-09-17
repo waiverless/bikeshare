@@ -110,17 +110,42 @@ def time_stats(df):
     start_time = time.time()
 
     # display the most common month
-
+    df['Start Time'] = pd.to_datetime(df['Start Time'])
+    df['month'] = df['Start Time'].dt.month
+    most_common_month = df['month'].mode()[0]
+    print(most_common_month)
 
     # display the most common day of week
-
+    df['Start Time'] = pd.to_datetime(df['Start Time'])
+    df['day'] = df['Start Time'].dt.day
+    most_common_day = df['day'].mode()[0]
+    print(most_common_day)
 
     # display the most common start hour
-
+    df['Start Time'] = pd.to_datetime(df['Start Time'])
+    df['hour'] = df['Start Time'].dt.hour
+    most_common_hour = df['hour'].mode()[0]
+    print(most_common_hour)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def union(List1,List2):
+    List = []
+    for word in List1:
+        List.append(word)
+    for word in List2:
+        List.append(word)
+    return List
+
+def most_frequent(List):
+	word_counter = {}
+	for word in List:
+		if word not in word_counter:
+			word_counter[word] = 1
+		else:
+			word_counter[word] += 1
+	return word_counter[max(word_counter)]
 
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
@@ -129,13 +154,16 @@ def station_stats(df):
     start_time = time.time()
 
     # display most commonly used start station
-
+    most_commonly_used_start_station = most_frequent(df['Start Station'])
+    print(most_commonly_used_start_station)
 
     # display most commonly used end station
-
+    most_commonly_used_start_station = most_frequent(df['End Station']) 
+    print(most_commonly_used_start_station)
 
     # display most frequent combination of start station and end station trip
-
+    most_frequent_combination_start_end_station_trip = most_frequent(union(df['Start Station'],df['End Station']))
+    print(most_frequent_combination_start_end_station_trip)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -148,10 +176,12 @@ def trip_duration_stats(df):
     start_time = time.time()
 
     # display total travel time
-
+    total_travel_time = df['Trip Duration'].sum()
+    print(total_travel_time)
 
     # display mean travel time
-
+    mean_travel_time = df['Trip Duration'].mean()
+    print(mean_travel_time)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -164,17 +194,33 @@ def user_stats(df):
     start_time = time.time()
 
     # Display counts of user types
-
+    user_types = df['User Type'].value_counts()
+    print(user_types)
 
     # Display counts of gender
-
+    genders = df['Gender'].value_counts()
+    print(genders)
 
     # Display earliest, most recent, and most common year of birth
 
+	#df['year'] = df['Birth Year'].dt.year
+	#earliest_year_of_birth = df['year'].mode()[0]
+	
+	# find the earliest year of birth
+    earliest_year_of_birth = df['Birth Year'].max();
+    print('Earliest year of birth:', earliest_year_of_birth)
+	
+	# find the most recent year of birth
+    most_recent_year_of_birth = df['Birth Year'].min();
+    print('Most recent year of birth:', most_recent_year_of_birth)
+	
+	#find most common year of birth
+    most_common_year_of_birth = df['Birth Year'].mean();
+    print('Most common year of birth:', most_common_year_of_birth)
+	
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-
 
 def main():
     while True:
