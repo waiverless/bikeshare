@@ -20,4 +20,7 @@ bikeshare_2.py
 
 ### Credits
 http://www.udacity.com
+World-Class Programs Built With Industry Experts. Advance Your Career. Exclusive Career Services. 
+[Launched] Monthly Subscription with 7 Days Refund. Enroll Now! Learn with the Best
+
 http://www.techleaders.eg/aal/
